@@ -2,29 +2,28 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import _ from 'lodash'
+import BooksGrid from './BooksGrid'
+
 
 class SearchPage extends Component {
     state = {
         query: '',
-        books:[]
+        books: []
     }
 
     componentDidMount() {
         BooksAPI.search('React').then(books => {
             this.setState({books: books})
-
-            console.log(this.state.books)
-          })
+        })
     }
 
     handleChange = _.debounce((query) => {
-        this.setState({ query: query })
+            this.setState({ query: query })
 
-        BooksAPI.search(this.state.query).then(books => {
-            this.setState({books: books})
-            console.log(this.state.books)
-        })
-    }, 300)
+            BooksAPI.search(this.state.query).then(books => {
+                this.setState({books: books})
+            })
+    }, 400)
 
     render () {
         return (
@@ -38,8 +37,9 @@ class SearchPage extends Component {
                         />
                     </div>
                 </div>
+
                 <div className="search-books-results">
-                    <ol className="books-grid"></ol>
+                    <BooksGrid books={this.state.books}/>
                 </div>
             </div>
         )
