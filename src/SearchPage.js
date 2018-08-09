@@ -23,9 +23,11 @@ class SearchPage extends Component {
             BooksAPI.search(this.state.query).then(books => {
                 this.setState({books: books})
             })
-    }, 400)
+    }, 300)
 
     render () {
+        let books = this.state.books
+
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -39,7 +41,7 @@ class SearchPage extends Component {
                 </div>
 
                 <div className="search-books-results">
-                    <BooksGrid books={this.state.books}/>
+                    <BooksGrid books={books}/>
                 </div>
             </div>
         )

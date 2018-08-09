@@ -11,6 +11,8 @@ class BooksGrid extends Component {
              )
         }
 
+        console.log(books)
+
         return (
             <ol className="books-grid">
                 {books !== undefined &&
