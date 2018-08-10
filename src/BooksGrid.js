@@ -18,7 +18,8 @@ class BooksGrid extends Component {
                 {books !== undefined &&
                     books.map((book) => (
                         <li key={book.id}>
-                            <Book bookDetail={book} />
+                            <Book
+                                bookDetail={book}/>
                         </li>
                     ))
                 }

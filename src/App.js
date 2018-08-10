@@ -16,6 +16,10 @@ class BooksApp extends React.Component {
     })
   }
 
+  onMove() {
+
+  }
+
   render() {
     return (
       <div className="app">
@@ -26,7 +30,8 @@ class BooksApp extends React.Component {
         )}/>
 
         <Route path='/search-page' render={() => (
-          <SearchPage />
+          <SearchPage
+            books={this.state.books} />
         )}/>
       </div>
     )
