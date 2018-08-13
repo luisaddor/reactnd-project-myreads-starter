@@ -7,22 +7,34 @@ import './App.css';
 
 class BooksApp extends React.Component {
   state = {
-   books: []
+   books: [],
+   rows: []
   }
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
       this.setState({books: books})
+
+      let rows = [...new Set(this.state.books.map(book => {
+        return book.shelf
+      }))]
+
+      this.setState({rows: rows})
     })
   }
 
   handleBookChange = (book, shelf) => {
       BooksAPI.update(book, shelf)
-      this.setState({bookShelf: shelf})
 
-      BooksAPI.getAll().then(books => {
-        this.setState({books: books})
-      })
+      book.shelf = shelf
+
+      let newState = this.state.books.filter(b =>
+        b.id !== book.id
+      )
+
+      newState = [...newState, book]
+
+      this.setState({books: newState})
   }
 
   render() {
@@ -31,6 +43,7 @@ class BooksApp extends React.Component {
         <Route exact path='/' render={() => (
           <MyReads
             books={this.state.books}
+            rows={this.state.rows}
             handleBookChange={this.handleBookChange}
           />
         )}/>

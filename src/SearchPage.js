@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import _ from 'lodash'
 import BooksGrid from './BooksGrid'
-import escapeRegExp from 'escape-string-regexp'
-
 
 class SearchPage extends Component {
     state = {
@@ -13,24 +11,8 @@ class SearchPage extends Component {
     }
 
     componentDidMount() {
-        const match = new RegExp(escapeRegExp('React'), 'i')
-
         BooksAPI.search('React').then(booksAPI => {
-
-            let booksProps = this.props.books.filter( (book) =>
-                match.test(book.title)
-            )
-
-            let merged = booksAPI.map((book) => {
-                let bookProps =  _.find(booksProps,{'id': book.id} )
-
-                if (bookProps) {
-                    book.shelf = bookProps.shelf
-                }
-                return book
-            })
-
-            this.setState({books: merged})
+            this.setState({books: booksAPI})
         })
     }
 
@@ -60,6 +42,7 @@ class SearchPage extends Component {
                 <div className="search-books-results">
                     <BooksGrid
                         books={books}
+                        booksProps={this.props.books}
                         handleBookChange={this.props.handleBookChange}
                     />
                 </div>

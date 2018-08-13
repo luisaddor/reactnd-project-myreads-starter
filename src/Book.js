@@ -9,6 +9,12 @@ class Book extends Component {
         this.setState({bookShelf: this.props.bookDetail.shelf ? this.props.bookDetail.shelf : 'none'})
     }
 
+    bookBehavior = (e) => {
+        this.props.handleBookChange(this.props.bookDetail, e.target.value)
+
+        this.setState({bookShelf: e.target.value})
+    }
+
     render (){
         let imageStyles
         let book =   this.props.bookDetail
@@ -23,7 +29,7 @@ class Book extends Component {
                 <div className="book-top">
                     <div className="book-cover" style={ imageStyles }></div>
                     <div className="book-shelf-changer">
-                        <select value={this.state.bookShelf} onChange={(e) => this.props.handleBookChange(book, e.target.value)} >
+                        <select value={this.state.bookShelf} onChange={this.bookBehavior} >
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
