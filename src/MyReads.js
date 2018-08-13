@@ -13,10 +13,10 @@ class MyReads extends Component {
                 <div className="list-books-content">
                     {this.props.rows.map(row =>
                         <BooksShelf
-                            key={row}
-                            title={row}
-                            books={this.props.books.filter(book => book.shelf === row)}
-                            handleBookChange={this.props.handleBookChange} />
+                            key={ row }
+                            title={ row }
+                            books={ this.props.books.filter(book => book.shelf === row) }
+                            handleBookChange={ this.props.handleBookChange } />
                     )}
 
                     <div className="open-search">
