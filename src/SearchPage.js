@@ -17,7 +17,6 @@ class SearchPage extends Component {
 
         BooksAPI.search('React').then(booksAPI => {
 
-
             let booksProps = this.props.books.filter( (book) =>
                 match.test(book.title)
             )
@@ -35,7 +34,7 @@ class SearchPage extends Component {
         })
     }
 
-    handleChange = _.debounce((query) => {
+    handleQuery = _.debounce((query) => {
             this.setState({ query: query })
 
             BooksAPI.search(this.state.query).then(books => {
@@ -53,14 +52,16 @@ class SearchPage extends Component {
                     <div className="search-books-input-wrapper">
                         <input type="text"
                             placeholder="Search by title or author"
-                            onChange={e => this.handleChange(e.target.value)}
+                            onChange={e => this.handleQuery(e.target.value)}
                         />
                     </div>
                 </div>
 
                 <div className="search-books-results">
                     <BooksGrid
-                        books={books}/>
+                        books={books}
+                        handleBookChange={this.props.handleBookChange}
+                    />
                 </div>
             </div>
         )

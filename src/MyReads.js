@@ -7,9 +7,6 @@ class MyReads extends Component {
     render () {
         let books = this.props.books;
 
-        console.log(books)
-
-
         let rows = [...new Set(books.map(book => {
             return book.shelf
         }))]
@@ -25,7 +22,9 @@ class MyReads extends Component {
                         <BooksShelf
                             key={row}
                             title={row}
-                            books={books.filter(book => book.shelf === row)} />
+                            books={books.filter(book => book.shelf === row)}
+                            handleBookChange={this.props.handleBookChange}
+                        />
                     )}
 
                     <div className="open-search">

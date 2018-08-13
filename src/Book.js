@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import * as BooksAPI from './BooksAPI'
 
 class Book extends Component {
     state = {
@@ -8,11 +7,6 @@ class Book extends Component {
 
     componentDidMount() {
         this.setState({bookShelf: this.props.bookDetail.shelf ? this.props.bookDetail.shelf : 'none'})
-    }
-
-    handleChange = (book, shelf) => {
-        BooksAPI.update(book, shelf)
-        this.setState({bookShelf: shelf})
     }
 
     render (){
@@ -29,7 +23,7 @@ class Book extends Component {
                 <div className="book-top">
                     <div className="book-cover" style={ imageStyles }></div>
                     <div className="book-shelf-changer">
-                        <select value={this.state.bookShelf} onChange={(e) => this.handleChange(book, e.target.value)} >
+                        <select value={this.state.bookShelf} onChange={(e) => this.props.handleBookChange(book, e.target.value)} >
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>

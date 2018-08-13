@@ -3,7 +3,7 @@ import Book from './Book'
 
 class BooksGrid extends Component {
     render () {
-        const books = this.props.books
+        let books = this.props.books
 
         if(!books || books.error ) {
              return (
@@ -11,15 +11,15 @@ class BooksGrid extends Component {
              )
         }
 
-        console.log(books)
-
         return (
             <ol className="books-grid">
                 {books !== undefined &&
                     books.map((book) => (
                         <li key={book.id}>
                             <Book
-                                bookDetail={book}/>
+                                bookDetail={book}
+                                handleBookChange={this.props.handleBookChange}
+                            />
                         </li>
                     ))
                 }
